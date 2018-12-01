@@ -21,7 +21,11 @@ var offerTitle = [
 
 
 
-
+// var getRandomElement = function () {
+// featuresMas.sort( function() { return 0.5 - Math.random() } );
+// };
+//
+// getRandomElement();
 
  var getRandomNumber = function (property) {
    var numberGenerator = property[Math.floor(Math.random() * property.length)];
@@ -47,32 +51,58 @@ var getRandomNumb = function (min, max) {
   return rand;
   };
 
-var userData = function () {
+
   var virt = getAvatarImage();
   var avat = 'img/avatars/' + getRandomNumber(virt);
-  var offer = getRandomNumber(offerTitle);
-  var price = getRandomNumb(1000, 100000); //круглые значения с шагом 1000
-  var type = getRandomNumber(typeMas); //нужно переводить на русский?
-  var rooms = getRandomNumb(0, 5);
-  var guests = getRandomNumb(1, 15); //Гостей иногда слишком много!
-  var checkin = getRandomNumber(checkMas);
-  var checkout = getRandomNumber(checkMas);
-  var features = getRandomNumber(featuresMas); //вывести несколько массивов!
-  var photos = getRandomNumber(photosMas); //Должны выводиться все три в произвольном порядке
+  // var offer = getRandomNumber(offerTitle);
+  // var price = getRandomNumb(1000, 100000); //круглые значения с шагом 1000
+  // var type = getRandomNumber(typeMas); //нужно переводить на русский?
+  // var rooms = getRandomNumb(0, 5);
+  // var guests = getRandomNumb(1, 15); //Гостей иногда слишком много!
+  // var checkin = getRandomNumber(checkMas);
+  // var checkout = getRandomNumber(checkMas);
+  // var features = getRandomNumber(featuresMas); //вывести несколько массивов!
+  // var photos = getRandomNumber(photosMas); //Должны выводиться все три в произвольном порядке
   // var locationX =
-  var locationY = getRandomNumb(130, 630);
-  console.log(avat);
-  console.log(offer);
-  console.log(price);
-  console.log(type);
-  console.log(rooms);
-  console.log(guests);
-  console.log(checkin);
-  console.log(checkout);
-  console.log(features);
-  console.log(photos);
+  // var locationY = getRandomNumb(130, 630);
+  // console.log(avat);
+  // console.log(offer);
+  // console.log(price);
+  // console.log(type);
+  // console.log(rooms);
+  // console.log(guests);
+  // console.log(checkin);
+  // console.log(checkout);
+  // console.log(features);
+  // console.log(photos);
   // console.log(locationX);
-  console.log(locationY);
-}
+  // console.log(locationY);
 
-userData();
+
+
+var massiv = [
+  {
+    author: {
+      avatar: avat
+    },
+    offer: {
+      title: getRandomNumber(offerTitle),
+      address: '600, 350',
+      price: getRandomNumb(1000, 100000),
+      type: getRandomNumber(typeMas),
+      rooms: getRandomNumb(0, 5),
+      guests: getRandomNumb(1, 15),
+      checkin: getRandomNumber(checkMas),
+      checkout: getRandomNumber(checkMas),
+      features: getRandomNumber(featuresMas),
+      description: ' ',
+      photos: getRandomNumber(photosMas),
+    },
+    location: {
+      x: 360,
+      y: getRandomNumb(130, 630)
+    }
+  }
+
+];
+console.log(massiv);
