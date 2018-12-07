@@ -14,6 +14,8 @@ var offerTitle = [
  var featuresMas = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
  var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
  // var photosMas = [1, 2, 3];
+ // photosMas.sort()
+ // console.log(photosMas.sort());
 
 // Получение диапазона price
 var getPriceHouse = function (min, max, interval) {
@@ -62,32 +64,6 @@ var getGuestsInHouse = function () {
 // function compareRandom() {
 //   return Math.random() - 0.5;
 // }
-
-function random (min, max, l) {
-  var arr = [], m = [], n = 0;
-  if (max - min < l-1) return;
-  for(var i=0; i<=(max-min); i++)
-  m[i] = i + min;
-  for (var i=0; i<l; i++) {
-    n = Math.floor(Math.random()*(m.length));
-    arr[i]= m.splice(n, 1)[0];};
-  return arr
-}
-// console.log(JSON.stringify(random(0,2,3)));
-
-var photo = function () {
-  var mas = [];
-  // for(var i = 0; i < photosMas.length; i++) {
-    mas.push(random(0,2,3));
-  // }
-  // mas = i;
-photosMas
-  console.log(mas);
-  // return mas;
-};
-photo();
-
-
 // function random (min, max, l) {
 //   var arr = [], m = [], n = 0;
 //   if (max - min < l-1) return;
@@ -117,7 +93,7 @@ var massiv = [
       features: getRandomNumber(featuresMas), //ассив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
       description: ' ',
       // photos: photosMas.sort(compareRandom),
-      // photos: random(0,2,3)
+      photos: photosMas.sort()
     },
     location: {
       x: 360, //«x»: случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
