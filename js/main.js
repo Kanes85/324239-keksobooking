@@ -59,46 +59,18 @@ var getGuestsInHouse = function () {
 
 // Перемешивание массива photos
 // var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-// function compareRandom() {
-//   return Math.random() - 0.5;
-// }
-
-function random (min, max, l) {
-  var arr = [], m = [], n = 0;
-  if (max - min < l-1) return;
-  for(var i=0; i<=(max-min); i++)
-  m[i] = i + min;
-  for (var i=0; i<l; i++) {
-    n = Math.floor(Math.random()*(m.length));
-    arr[i]= m.splice(n, 1)[0];};
-  return arr
+function compareRandom() {
+  var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+  return photosMas.sort();
 }
-// console.log(JSON.stringify(random(0,2,3)));
 
-var photo = function () {
-  var mas = [];
-  // for(var i = 0; i < photosMas.length; i++) {
-    mas.push(random(0,2,3));
-  // }
-  // mas = i;
-photosMas
-  console.log(mas);
-  // return mas;
+// Определение ширины карты
+var getWidthBlock = function (left) {
+  var elem = document.querySelector('.map__pins');
+  var widthMap = getComputedStyle(elem).width;
+  var widthBlock = parseInt(widthMap, 10);
+  return getRandomNumb(left, widthBlock);
 };
-photo();
-
-
-// function random (min, max, l) {
-//   var arr = [], m = [], n = 0;
-//   if (max - min < l-1) return;
-//   for(var i=0; i<=(max-min); i++)
-//   m[i] = i + min;
-//   for (var i=0; i<l; i++) {
-//     n = Math.floor(Math.random()*(m.length));
-//     arr[i]= m.splice(n,1)[0];};
-//   return arr
-// }
-// console.log(JSON.stringify(random(0,2,3)));
 
 var massiv = [
   {
@@ -114,13 +86,12 @@ var massiv = [
       guests: getGuestsInHouse(),
       checkin: getRandomNumber(checkMas),
       checkout: getRandomNumber(checkMas),
-      features: getRandomNumber(featuresMas), //ассив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
+      features: getRandomNumber(featuresMas), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
       description: ' ',
-      // photos: photosMas.sort(compareRandom),
-      // photos: random(0,2,3)
+      photos: compareRandom() //Сортировка в произвольном порядке
     },
     location: {
-      x: 360, //«x»: случайное число, координата x метки на карте. Значение ограничено размерами блока, в котором перетаскивается метка.
+      x: getWidthBlock(150),
       y: getRandomNumb(130, 630)
     }
   }
