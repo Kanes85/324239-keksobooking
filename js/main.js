@@ -1,5 +1,7 @@
-var USER_AVATAR = 8;
-var offerTitle = [
+'use strict';
+
+var USERS = 8;
+var TITLE_DESCRIPTION = [
   'Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -9,15 +11,16 @@ var offerTitle = [
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
  ];
- var typeMas = ['palace', 'flat', 'house', 'bungalo'];
- var checkMas = ['12:00', '13:00', '14:00'];
- var featuresMas = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
- var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
- // var photosMas = [1, 2, 3];
- // photosMas.sort()
- // console.log(photosMas.sort());
+ var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
+ var TIMES = ['12:00', '13:00', '14:00'];
+ var ADDITIONALLY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+ var PHOTOS_APARTMENT = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-// Получение диапазона price
+ var MIN_PRICE = 1000;
+ var MAX_PRICE = 1000000;
+
+
+// Получение диапазона цен
 var getPriceHouse = function (min, max, interval) {
   var randomePriceElement = Math.floor(Math.random()*(max-min+interval)/interval);
   var randomePrice = randomePriceElement * interval + min;
@@ -35,9 +38,10 @@ var getPriceHouse = function (min, max, interval) {
    return rand;
    };
 
+// Генерация случайного номера аватара
  var getAvatarImage = function () {
     var avatarImages = [];
-    for(var i = 0; i < USER_AVATAR; i++) {
+    for(var i = 0; i < USERS; i++) {
       avatarImages.push('user0' + (i + 1) + '.png');
     };
     return avatarImages;
@@ -59,11 +63,15 @@ var getGuestsInHouse = function () {
  return guestInHouse;
 };
 
-// Перемешивание массива photos
-// var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-function compareRandom() {
-  var photosMas = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-  return photosMas.sort();
+// Перемешивание массива с фотографиями
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var randomIndex = Math.floor(Math.random() * (i + 1));
+    var tempValue = array[i];
+    array[i] = array[randomIndex];
+    array[randomIndex] = tempValue;
+  }
+  return array;
 }
 
 // Определение ширины карты
@@ -80,17 +88,17 @@ var massiv = [
       avatar: 'img/avatars/' + getRandomNumber(getAvatarImage())
     },
     offer: {
-      title: getRandomNumber(offerTitle),  //Значения не должны повторяться
+      title: getRandomNumber(TITLE_DESCRIPTION),  //Значения не должны повторяться
       address: '600, 350',  //"{{location.x}}, {{location.y}}", например, "600, 350"
-      price: getPriceHouse(1000, 1000000, 1000),
-      type: getRandomNumber(typeMas),
+      price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000),
+      type: getRandomNumber(TYPE_APARTMENTS),
       rooms: houesRooms,
       guests: getGuestsInHouse(),
-      checkin: getRandomNumber(checkMas),
-      checkout: getRandomNumber(checkMas),
-      features: getRandomNumber(featuresMas), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
+      checkin: getRandomNumber(TIMES),
+      checkout: getRandomNumber(TIMES),
+      features: getRandomNumber(ADDITIONALLY), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
       description: ' ',
-      photos: compareRandom() //Сортировка в произвольном порядке
+      photos: shuffleArray(PHOTOS_APARTMENT)  //Сортировка в произвольном порядке фотографий
     },
     location: {
       x: getWidthBlock(150),
