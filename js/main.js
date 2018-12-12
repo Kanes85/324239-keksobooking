@@ -74,6 +74,13 @@ function shuffleArray(array) {
   return array;
 }
 
+// Выдача случайной длины массива
+function getArrayLength(array) {
+  var arrLength = array.slice();
+  arrLength.length = getRandomNumb(1, array.length);
+  return arrLength;
+}
+
 // Определение ширины карты
 var getWidthBlock = function (left) {
   var elem = document.querySelector('.map__pins');
@@ -82,27 +89,32 @@ var getWidthBlock = function (left) {
   return getRandomNumb(left, widthBlock);
 };
 
+// Определение координат X и Y
+var locationX = getWidthBlock(150);
+var locationY = getRandomNumb(130, 630);
+
+// Массив содержащий объекты
 var massiv = [
   {
     author: {
       avatar: 'img/avatars/' + getRandomNumber(getAvatarImage())
     },
     offer: {
-      title: getRandomNumber(TITLE_DESCRIPTION),  //Значения не должны повторяться
-      address: '600, 350',  //"{{location.x}}, {{location.y}}", например, "600, 350"
-      price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000),
-      type: getRandomNumber(TYPE_APARTMENTS),
-      rooms: houesRooms,
-      guests: getGuestsInHouse(),
-      checkin: getRandomNumber(TIMES),
-      checkout: getRandomNumber(TIMES),
-      features: getRandomNumber(ADDITIONALLY), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
-      description: ' ',
+      title: getRandomNumber(TITLE_DESCRIPTION),  //Аватар пользователя
+      address: locationX + ', ' + locationY, //Координаты на карте X и Y
+      price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000), //Цена жилья в диапозоне от 1000 до 1000000  с шагом 1000
+      type: getRandomNumber(TYPE_APARTMENTS), //Тип жилья
+      rooms: houesRooms, //количество комнат
+      guests: getGuestsInHouse(), //количество гостей в доме
+      checkin: getRandomNumber(TIMES), //Время заезда
+      checkout: getRandomNumber(TIMES), //Время выезда
+      features: getArrayLength(ADDITIONALLY), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
+      description: ' ', //Пустая строка
       photos: shuffleArray(PHOTOS_APARTMENT)  //Сортировка в произвольном порядке фотографий
     },
     location: {
-      x: getWidthBlock(150),
-      y: getRandomNumb(130, 630)
+      x: locationX,
+      y: locationY
     }
   }
 ];
