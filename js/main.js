@@ -11,13 +11,17 @@ var TITLE_DESCRIPTION = [
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
  ];
- var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
- var TIMES = ['12:00', '13:00', '14:00'];
- var ADDITIONALLY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
- var PHOTOS_APARTMENT = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var TYPE_APARTMENTS = ['palace', 'flat', 'house', 'bungalo'];
+var TIMES = ['12:00', '13:00', '14:00'];
+var ADDITIONALLY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var PHOTOS_APARTMENT = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
- var MIN_PRICE = 1000;
- var MAX_PRICE = 1000000;
+var MIN_PRICE = 1000;
+var MAX_PRICE = 1000000;
+
+//Убираю класс .map--faded
+var mapBlock = document.querySelector('.map');
+mapBlock.classList.remove('map--faded');
 
 
 // Получение диапазона цен
@@ -46,11 +50,6 @@ var getPriceHouse = function (min, max, interval) {
     };
     return avatarImages;
 };
-
-var getRandomNumb = function (min, max) {
-  var rand = Math.ceil(Math.random() * (min - max) + max)
-  return rand;
-  };
 
 // Количество комнат в доме
 var houesRooms = getRandomNumb(0, 5);
