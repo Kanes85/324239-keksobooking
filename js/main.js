@@ -139,19 +139,28 @@ var findingsAds = function (usersAds) {
 var pinTemplate = document.querySelector('#pin').content;
 
 function templateElement (arr) {
-var mapPin = pinTemplate.querySelector('.map__pin');
-var pinElement = mapPin.cloneNode(true);
+  var mapPin = pinTemplate.querySelector('.map__pin');
+    for(var i = 0; i < arr.length; i++) {
+      var pinData = arr[i];
+      var pinElement = mapPin.cloneNode(true);
 
-pinElement.style.left = arr.locationX + 'px';
-pinElement.style.top = arr.locationY + 'px';
-pinElement.querySelector('img').src = arr.author.avatar;
-pinElement.querySelector('img').alt = arr.offer.title;
-
+pinElement.style.left = pinData.location.x + 'px';
+pinElement.style.top = pinData.location.y + 'px';
+pinElement.querySelector('img').src = pinData.author.avatar;
+pinElement.querySelector('img').alt = pinData.offer.title;
+};
 return pinElement;
 };
 
-
-
 var mapPinsBlock = document.querySelector('.map__pins');
-var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
-var fragment = document.createDocumentFragment();
+
+
+
+
+// templateElement(findingsAds(USERS));
+
+
+
+// var mapPinsBlock = document.querySelector('.map__pins');
+// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+// var fragment = document.createDocumentFragment();
