@@ -135,3 +135,23 @@ var findingsAds = function (usersAds) {
     }
   return ads;
 };
+
+var pinTemplate = document.querySelector('#pin').content;
+
+function templateElement (arr) {
+var mapPin = pinTemplate.querySelector('.map__pin');
+var pinElement = mapPin.cloneNode(true);
+
+pinElement.style.left = arr.locationX + 'px';
+pinElement.style.top = arr.locationY + 'px';
+pinElement.querySelector('img').src = arr.author.avatar;
+pinElement.querySelector('img').alt = arr.offer.title;
+
+return pinElement;
+};
+
+
+
+var mapPinsBlock = document.querySelector('.map__pins');
+var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+var fragment = document.createDocumentFragment();
