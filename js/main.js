@@ -19,10 +19,11 @@ var PHOTOS_APARTMENT = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'h
 var MIN_PRICE = 1000;
 var MAX_PRICE = 1000000;
 
+var MAX_GUEST_IN_ROOM = 4;
+
 //Убираю класс .map--faded
 var mapBlock = document.querySelector('.map');
 mapBlock.classList.remove('map--faded');
-
 
 // Получение диапазона цен
 var getPriceHouse = function (min, max, interval) {
@@ -88,33 +89,49 @@ var getWidthBlock = function (left) {
   return getRandomNumb(left, widthBlock);
 };
 
-// Определение координат X и Y
-var locationX = getWidthBlock(150);
-var locationY = getRandomNumb(130, 630);
+var findingsAds = function (usersAds) {
+  var ads = [];
 
-// Массив содержащий объекты
-var massiv = [
-  {
-    author: {
-      avatar: 'img/avatars/' + getRandomNumber(getAvatarImage())
-    },
-    offer: {
-      title: getRandomNumber(TITLE_DESCRIPTION),  //Аватар пользователя
-      address: locationX + ', ' + locationY, //Координаты на карте X и Y
-      price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000), //Цена жилья в диапозоне от 1000 до 1000000  с шагом 1000
-      type: getRandomNumber(TYPE_APARTMENTS), //Тип жилья
-      rooms: houesRooms, //количество комнат
-      guests: getGuestsInHouse(), //количество гостей в доме
-      checkin: getRandomNumber(TIMES), //Время заезда
-      checkout: getRandomNumber(TIMES), //Время выезда
-      features: getArrayLength(ADDITIONALLY), //массив строк случайной длины из ниже предложенных: "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
-      description: ' ', //Пустая строка
-      photos: shuffleArray(PHOTOS_APARTMENT)  //Сортировка в произвольном порядке фотографий
-    },
-    location: {
-      x: locationX,
-      y: locationY
+  for(var i = 0; i < usersAds; i++) {
+
+    // Определение координат X и Y
+    var locationX = getWidthBlock(150);
+    var locationY = getRandomNumb(130, 630);
+
+    // Количество комнат в доме
+    var houesRooms = getRandomNumb(0, 5);
+
+    // Определяем количество гостей в доме
+    var getGuestsInHouse = function () {
+     var guestsInRoom = Math.ceil(Math.random() * MAX_GUEST_IN_ROOM);
+     var roomsInHouse = houesRooms;
+     var guestInHouse = guestsInRoom * roomsInHouse;
+     return guestInHouse;
+    };
+
+    var dataAds =  {
+        author: {
+          avatar: 'img/avatars/' + getRandomNumber(getAvatarImage())
+        },
+        offer: {
+          title: getRandomNumber(TITLE_DESCRIPTION),  //Аватар пользователя
+          address: locationX + ', ' + locationY, //Координаты на карте X и Y
+          price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000), //Цена жилья в диапозоне от 1000 до 1000000  с шагом 1000
+          type: getRandomNumber(TYPE_APARTMENTS), //Тип жилья
+          rooms: houesRooms, //Количество комнат
+          guests: getGuestsInHouse(), //Количество гостей в доме
+          checkin: getRandomNumber(TIMES), //Время заезда
+          checkout: getRandomNumber(TIMES), //Время выезда
+          features: getArrayLength(ADDITIONALLY), //Массив строк случайной длины
+          description: ' ', //Пустая строка
+          photos: shuffleArray(PHOTOS_APARTMENT)  //Сортировка в произвольном порядке фотографий
+        },
+        location: {
+          x: locationX,
+          y: locationY
+        }
+      };
+      ads.push(dataAds);
     }
-  }
-];
-console.log(massiv);
+  return ads;
+};
