@@ -153,9 +153,6 @@ pinElement.querySelector('img').alt = pinData.offer.title;
 return pinElement;
 };
 
-var mapPinsBlock = document.querySelector('.map__pins');
-// var fragment = document.createDocumentFragment();
-
 var cardBlock = document.querySelector('#card').content;
 
 function renderCard (pin) {
@@ -170,26 +167,49 @@ function renderCard (pin) {
   cardElement.querySelector('.popup__type').textContent = pins.offer.type; //Доработать
   cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
-  // cardElement.querySelector('.popup__features'). = pins.offer.features;
+  // cardElement.querySelector('.popup__features').textContent = pins.offer.features;
   cardElement.querySelector('.popup__description').textContent = pins.offer.description;
-  // cardElement.querySelector('.popup__photos'). = pins.offer.photos;
+  // cardElement.querySelector('.popup__photos').innerHTML = pins.offer.photos;
   cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
-};
   // console.log(cardElement);
+};
   return cardElement;
 };
 
-renderCard(findingsAds(USERS));
-
-
 // renderCard(findingsAds(USERS));
+
+
+
 
 // templateElement(findingsAds(USERS));
 
-
-
-var mapPinsBlock = document.querySelector('.map__pins');
-// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+// function gen () {
 // var fragment = document.createDocumentFragment();
+// for(var i = 0; i < USERS; i++) {
+// var mapPinsBlock = document.querySelector('.map__pins');
+// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+// fragment.appendChild(renderCard(findingsAds(USERS)));
+//
+// };
+// console.log(fragment);
+// return fragment;
+// };
+//
+// gen();
+// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+
 // var mapPinsBlock = document.querySelector('.map__pins');
 // console.log(renderCard());
+var lololo = templateElement(USERS);
+
+var fragment = document.createDocumentFragment();
+var mapPinsBlock = document.querySelector('.map__pins');
+var similarCardList = document.querySelector('.map__filters-container');
+var map = document.querySelector('.map');
+// for (var i = 0; i < 3; i++) {
+map.insertBefore(renderCard(findingsAds(USERS)), similarCardList);
+for (var i = 0; i < USERS; i++) {
+  // var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
+  fragment.appendChild(templateElement(USERS));
+};
+mapPinsBlock.appendChild(fragment);
