@@ -144,8 +144,8 @@ function templateElement (arr) {
       var pinData = arr[i];
       var pinElement = mapPin.cloneNode(true);
 
-pinElement.style.left = pinData.location.x + 'px';
-pinElement.style.top = pinData.location.y + 'px';
+pinElement.style.left = (pinData.location.x) + 'px';
+pinElement.style.top = (pinData.location.y) + 'px';
 pinElement.querySelector('img').src = pinData.author.avatar;
 pinElement.querySelector('img').alt = pinData.offer.title;
 // console.log(pinElement);
@@ -163,29 +163,36 @@ function renderCard (pin) {
     var pins = pin[j];
   var cardElement = cardAds.cloneNode(true);
 
+
+function bobo () {
+  for(var k = 0; k < PHOTOS_APARTMENT.length; k++) {
+    var koko = '<img src=' + pins.offer.photos[k] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+console.log(koko);
+};
+return koko;
+};
+
+
   cardElement.querySelector('.popup__title').textContent = pins.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = pins.offer.address;
-  cardElement.querySelector('.popup__text--price').textContent = pins.offer.price + '₽/ночь';
+  cardElement.querySelector('.popup__text--price').textContent = pins.offer.price + ' ₽/ночь';
   cardElement.querySelector('.popup__type').textContent = pins.offer.type; //Доработать
   cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
   // cardElement.querySelector('.popup__features').innerHTML = pins.offer.features;
   cardElement.querySelector('.popup__description').textContent = pins.offer.description;
-  // cardElement.querySelector('.popup__photos').innerHTML = '<img src=pins.offer.photos width="45" height="40" alt="Фотография жилья">';
+  cardElement.querySelector('.popup__photos').innerHTML = bobo();
   // pins.offer.photos;
   cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
   // console.log(cardElement);
 
-// var lolo = cardElement.querySelector('.popup__photos');
-// for(var k = 0; k < 3; k++) {
-//   lolo.innerHTML = '<img src=pins.offer.photos[k] width="45" height="40" alt="Фотография жилья">';
-//   console.log(lolo);
-// };
+console.log(cardElement);
+return cardElement;
+};
 
 };
-console.log(cardElement);
-  return cardElement;
-};
+
+
 
 // renderCard(findingsAds(USERS));
 
