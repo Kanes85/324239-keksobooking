@@ -83,7 +83,7 @@ function getArrayLength(array) {
 
 // Определение ширины карты
 var getWidthBlock = function (left) {
-  var elem = document.querySelector('.map__pins');
+  var elem = document.querySelector('.map__overlay');
   var widthMap = getComputedStyle(elem).width;
   var widthBlock = parseInt(widthMap, 10);
   return getRandomNumb(left, widthBlock);
@@ -95,8 +95,8 @@ var findingsAds = function (usersAds) {
   for(var i = 0; i < usersAds; i++) {
 
     // Определение координат X и Y
-    var locationX = getWidthBlock(150);
-    var locationY = getRandomNumb(160, 630);
+    var locationX = getWidthBlock(190);
+    var locationY = getRandomNumb(190, 630);
 
     // Количество комнат в доме
     var houesRooms = getRandomNumb(0, 5);
