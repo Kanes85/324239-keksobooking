@@ -169,12 +169,21 @@ function renderCard (pin) {
   cardElement.querySelector('.popup__type').textContent = pins.offer.type; //Доработать
   cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
-  // cardElement.querySelector('.popup__features').textContent = pins.offer.features;
+  // cardElement.querySelector('.popup__features').innerHTML = pins.offer.features;
   cardElement.querySelector('.popup__description').textContent = pins.offer.description;
-  // cardElement.querySelector('.popup__photos').innerHTML = pins.offer.photos;
+  // cardElement.querySelector('.popup__photos').innerHTML = '<img src=pins.offer.photos width="45" height="40" alt="Фотография жилья">';
+  // pins.offer.photos;
   cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
   // console.log(cardElement);
+
+// var lolo = cardElement.querySelector('.popup__photos');
+// for(var k = 0; k < 3; k++) {
+//   lolo.innerHTML = '<img src=pins.offer.photos[k] width="45" height="40" alt="Фотография жилья">';
+//   console.log(lolo);
+// };
+
 };
+console.log(cardElement);
   return cardElement;
 };
 
@@ -194,7 +203,8 @@ var pinki = findingsAds(USERS);
 map.insertBefore(renderCard(pinki), similarCardList);
 for (var i = 0; i < USERS; i++) {
   // var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
-  fragment.appendChild(templateElement(pinki));
+  fragment.appendChild(templateElement(findingsAds(USERS)));
 };
 
 mapPinsBlock.appendChild(fragment);
+console.log(mapPinsBlock);
