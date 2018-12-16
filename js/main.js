@@ -96,7 +96,7 @@ var findingsAds = function (usersAds) {
 
     // Определение координат X и Y
     var locationX = getWidthBlock(150);
-    var locationY = getRandomNumb(130, 630);
+    var locationY = getRandomNumb(160, 630);
 
     // Количество комнат в доме
     var houesRooms = getRandomNumb(0, 5);
@@ -153,6 +153,8 @@ pinElement.querySelector('img').alt = pinData.offer.title;
 return pinElement;
 };
 
+// templateElement(findingsAds(USERS));
+
 var cardBlock = document.querySelector('#card').content;
 
 function renderCard (pin) {
@@ -181,35 +183,18 @@ function renderCard (pin) {
 
 
 
-// templateElement(findingsAds(USERS));
 
-// function gen () {
-// var fragment = document.createDocumentFragment();
-// for(var i = 0; i < USERS; i++) {
-// var mapPinsBlock = document.querySelector('.map__pins');
-// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
-// fragment.appendChild(renderCard(findingsAds(USERS)));
-//
-// };
-// console.log(fragment);
-// return fragment;
-// };
-//
-// gen();
-// var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
-
-// var mapPinsBlock = document.querySelector('.map__pins');
-// console.log(renderCard());
-var lololo = templateElement(USERS);
 
 var fragment = document.createDocumentFragment();
 var mapPinsBlock = document.querySelector('.map__pins');
 var similarCardList = document.querySelector('.map__filters-container');
 var map = document.querySelector('.map');
-// for (var i = 0; i < 3; i++) {
-map.insertBefore(renderCard(findingsAds(USERS)), similarCardList);
+var pinki = findingsAds(USERS);
+
+map.insertBefore(renderCard(pinki), similarCardList);
 for (var i = 0; i < USERS; i++) {
   // var pinsBlockGenerate = mapPinsBlock.cloneNode(true);
-  fragment.appendChild(templateElement(USERS));
+  fragment.appendChild(templateElement(pinki));
 };
+
 mapPinsBlock.appendChild(fragment);
