@@ -157,21 +157,35 @@ return pinElement;
 
 var cardBlock = document.querySelector('#card').content;
 
+
 function renderCard (pin) {
   var cardAds = cardBlock.querySelector('.map__card');
   for(var j = 0; j < pin.length; j++) {
     var pins = pin[j];
   var cardElement = cardAds.cloneNode(true);
 
-
+var cardTemplate = document.querySelector('#card').content.querySelector('article');
 function bobo () {
+  // var fragment = document.createDocumentFragment();
+  // var imageBlock = document.querySelector('.map__card');
+  // var image = imageBlock.querySelector('.popup__photos');
+  var img = document.createElement('img');
+  // var imge = document.querySelector('.popup__photo');
+
   for(var k = 0; k < PHOTOS_APARTMENT.length; k++) {
+    var card = cardTemplate.cloneNode(true);
+    img.className = 'popup__photo';
+    img.src = pins.offer.photos[k];
+    img.style.width = '45px';
+    img.style.height = '40px';
+    img.alt = 'Фотография жилья';
     var koko = '<img src=' + pins.offer.photos[k] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+
+    card.querySelector('.popup__photos').appendChild(img);
 console.log(koko);
 };
 return koko;
 };
-
 
   cardElement.querySelector('.popup__title').textContent = pins.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = pins.offer.address;
@@ -179,27 +193,13 @@ return koko;
   cardElement.querySelector('.popup__type').textContent = pins.offer.type; //Доработать
   cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
-  // cardElement.querySelector('.popup__features').innerHTML = pins.offer.features;
   cardElement.querySelector('.popup__description').textContent = pins.offer.description;
   cardElement.querySelector('.popup__photos').innerHTML = bobo();
-  // pins.offer.photos;
   cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
-  // console.log(cardElement);
-
 console.log(cardElement);
 return cardElement;
 };
-
 };
-
-
-
-// renderCard(findingsAds(USERS));
-
-
-
-
-
 
 var fragment = document.createDocumentFragment();
 var mapPinsBlock = document.querySelector('.map__pins');
