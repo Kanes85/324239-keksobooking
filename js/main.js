@@ -164,14 +164,26 @@ function renderCard (pin) {
   var cardElement = cardAds.cloneNode(true);
 
 
-function bobo () {
-  for(var k = 0; k < PHOTOS_APARTMENT.length; k++) {
-    var koko = '<img src=' + pins.offer.photos[k] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
-console.log(koko);
-};
-return koko;
-};
-
+//   // function momo () {
+//   var kiki = cardElement.querySelector('.popup__photos');
+//
+//   for(var k = 0; k < PHOTOS_APARTMENT.length; k++) {
+//     // var cardElem = kiki.cloneNode(true);
+//     var img = document.createElement('img');
+//     // img = '<img src=' + pins.offer.photos[k] + ' class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+//
+//     img.src = pins.offer.photos[k];
+//     img.className = 'popup__photo';
+//     img.width = 45;
+//     img.height = 40;
+//     img.alt = 'Фотография жилья';
+//     // var kiki = cardElement.querySelector('.popup__photo');
+//     cardElement.appendChild(img);
+// console.log(img);
+// };
+// // };
+//
+// // momo();
 
   cardElement.querySelector('.popup__title').textContent = pins.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = pins.offer.address;
@@ -181,20 +193,23 @@ return koko;
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
   // cardElement.querySelector('.popup__features').innerHTML = pins.offer.features;
   cardElement.querySelector('.popup__description').textContent = pins.offer.description;
-  cardElement.querySelector('.popup__photos').innerHTML = bobo();
-  // pins.offer.photos;
+  cardElement.querySelector('.popup__photos').innerHTML = '';
   cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
-  // console.log(cardElement);
+};
 
+
+for(var k = 0; k < PHOTOS_APARTMENT.length; k++) {
+  var img = document.createElement('img');
+  img.src = pins.offer.photos[k];
+  img.className = 'popup__photo';
+  img.width = 45;
+  img.height = 40;
+  img.alt = 'Фотография жилья';
+  cardElement.querySelector('.popup__photos').appendChild(img);
+};
 console.log(cardElement);
 return cardElement;
 };
-
-};
-
-
-
-// renderCard(findingsAds(USERS));
 
 
 
