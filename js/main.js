@@ -202,11 +202,6 @@ console.log(cardElement);
 return cardElement;
 };
 
-
-
-
-
-
 var fragment = document.createDocumentFragment();
 var mapPinsBlock = document.querySelector('.map__pins');
 var similarCardList = document.querySelector('.map__filters-container');
