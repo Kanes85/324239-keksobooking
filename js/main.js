@@ -37,7 +37,7 @@ var getPriceHouse = function (min, max, interval) {
    return numberGenerator;
  };
 
-// Генерация случайного числа в заданном диапазоне
+ // Генерация случайного числа в заданном диапазоне
  var getRandomNumb = function (min, max) {
    var rand = Math.ceil(Math.random() * (min - max) + max);
    return rand;
@@ -122,7 +122,7 @@ var findingsAds = function (usersAds) {
           guests: getGuestsInHouse(), //Количество гостей в доме
           checkin: getRandomNumber(TIMES), //Время заезда
           checkout: getRandomNumber(TIMES), //Время выезда
-          features: getArrayLength(ADDITIONALLY), //Массив строк случайной длины с удобствами
+          // features: getArrayLength(ADDITIONALLY), //Массив строк случайной длины с удобствами
           description: ' ', //Пустая строка
           photos: shuffleArray(PHOTOS_APARTMENT)  //Сортировка в произвольном порядке фотографий
         },
@@ -150,12 +150,9 @@ pinElement.style.left = (pinData.location.x) + 'px';
 pinElement.style.top = (pinData.location.y) + 'px';
 pinElement.querySelector('img').src = pinData.author.avatar;
 pinElement.querySelector('img').alt = pinData.offer.title;
-// console.log(pinElement);
 };
 return pinElement;
 };
-
-// templateElement(findingsAds(USERS));
 
 var cardBlock = document.querySelector('#card').content;
 
@@ -166,10 +163,25 @@ function renderCard (pin) {
     var pins = pin[j];
   var cardElement = cardAds.cloneNode(true);
 
+  // Русская локализация типа жилья ('palace', 'flat', 'house', 'bungalo')
+  var getTranslationType = function () {
+    var textContent = '';
+    if (pins.offer.type === 'palace') {
+      textContent = 'Дворец';
+    } else if (pins.offer.type === 'flat') {
+      textContent = 'Квартира';
+    } else if (pins.offer.type === 'house') {
+      textContent = 'Дом';
+    } else if (pins.offer.type === 'bungalo') {
+      textContent = 'Бунгало';
+    };
+    return textContent;
+  };
+
   cardElement.querySelector('.popup__title').textContent = pins.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = pins.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = pins.offer.price + ' ₽/ночь';
-  cardElement.querySelector('.popup__type').textContent = pins.offer.type; //Доработать
+  cardElement.querySelector('.popup__type').textContent = getTranslationType(); // pins.offer.type; //Доработать
   cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' +  pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
   cardElement.querySelector('.popup__features').innerHTML = ''; //Доработать
@@ -195,9 +207,8 @@ for(var z = 0; z < getArrayLength(ADDITIONALLY).length; z++) {
   var featureAppart = getArrayLength(ADDITIONALLY);
   feature.className = 'popup__feature popup__feature--' + featureAppart[z];
   cardElement.querySelector('.popup__features').appendChild(feature);
-  console.log(feature); //Иногда featureAppart[z] выдает = undefined. Почему?
+  // console.log(feature); //Иногда featureAppart[z] выдает = undefined. Почему?
 };
-
 console.log(cardElement);
 return cardElement;
 };
