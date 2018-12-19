@@ -47,11 +47,11 @@ var getPriceHouse = function (min, max, interval) {
  var getAvatarImage = function () {
     var avatarImages = [];
     for(var i = 0; i < USERS; i++) {
-      avatarImages.push('user0' + (i + 1) + '.png');
+      avatarImages.push('0' + (i + 1) + '.png');
     };
     return avatarImages;
 };
-
+getAvatarImage();
 
 
 var cutRandomElements = function (arr) {
@@ -59,28 +59,6 @@ var cutRandomElements = function (arr) {
 
   return newArr;
 };
-
-function getImg () {
-  var imgAva = getAvatarImage();
-  for(var a = 0; a < imgAva.length; a++) {
-    var avaUser = imgAva.splice(a, imgAva.length);
-
-    console.log(avaUser);
-  };
-    // console.log(avaUser);
-  return avaUser;
-};
-
-// function getImg () {
-//   var imgAva = getAvatarImage();
-//   for(var a = 0; a < imgAva.length; a++) {
-//     var mg = unique(imgAva);
-//     console.log(mg);
-//   };
-//   return mg;
-// };
-//
-// getImg();
 
 // Количество комнат в доме
 var houesRooms = getRandomNumb(0, 5);
@@ -111,22 +89,14 @@ function getArrayLength(array) {
   return arrLength;
 }
 
-// Определение ширины карты
-// var getWidthBlock = function (left) {
-//   var elem = document.querySelector('.map__overlay');
-//   var widthMap = getComputedStyle(elem).width;
-//   var widthBlock = parseInt(widthMap, 10);
-//   return getRandomNumb(left, widthBlock);
-// };
-
 var findingsAds = function (usersAds) {
   var ads = [];
 
   for(var i = 0; i < usersAds; i++) {
 
     // Определение координат X и Y
-    var locationX = getRandomNumb(130, 1100);
-    var locationY = getRandomNumb(190, 630);
+    var locationX = getRandomNumb(250, 1150) - 50 / 2;
+    var locationY = getRandomNumb(190, 630) - 70;
 
     // Количество комнат в доме
     var houesRooms = getRandomNumb(0, 5);
@@ -141,7 +111,7 @@ var findingsAds = function (usersAds) {
 
     var dataAds =  {
         author: {
-          avatar: 'img/avatars/' + getRandomNumber(getAvatarImage())
+          avatar: 'img/avatars/user' + getRandomNumber(getAvatarImage())
         },
         offer: {
           title: getRandomNumber(TITLE_DESCRIPTION),  //Аватар пользователя
@@ -176,8 +146,8 @@ function templateElement (arr) {
       var pinData = arr[i];
       var pinElement = mapPin.cloneNode(true);
 
-pinElement.style.left = (pinData.location.x + 40 / 2) + 'px';
-pinElement.style.top = (pinData.location.y + 40) + 'px';
+pinElement.style.left = pinData.location.x + 'px';
+pinElement.style.top = pinData.location.y + 'px';
 pinElement.querySelector('img').src = pinData.author.avatar;
 pinElement.querySelector('img').alt = pinData.offer.title;
 };
