@@ -89,8 +89,6 @@ function getEnumeration (array) {
 var findingsAds = function (usersAds) {
   var ads = [];
 
-  for (var i = 0; i < usersAds; i++) {
-
     // Определение координат X и Y
     var locationX = getRandomNumber(MIX_LOCATION_X, MAX_LOCATION_X) - PIN_WIDTH / 2;
     var locationY = getRandomNumber(MIX_LOCATION_Y, MAX_LOCATION_Y) - PIN_HEIGHT;
@@ -108,7 +106,7 @@ var findingsAds = function (usersAds) {
 
     var dataAds = {
       author: {
-        avatar: getEnumeration(getAvatarImage()) //getEnumeration(getAvatarImage()) // Аватар пользователя
+        avatar: getEnumeration(getAvatarImage()) // Аватар пользователя
       },
       offer: {
         title: getEnumeration(TITLES), // Заголовок объявления
@@ -129,11 +127,9 @@ var findingsAds = function (usersAds) {
       }
     };
     ads.push(dataAds);
-  }
-  console.log(ads);
+  // console.log(ads);
   return ads;
 };
-
 
 var pinTemplate = document.querySelector('#pin').content;
 
