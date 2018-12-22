@@ -79,6 +79,13 @@ function getArrayLength(array) {
   return arrLength;
 }
 
+// Перебор массива
+function getEnumeration (array) {
+  var temp = array;
+  temp.forEach(function(entry) {});
+  return temp[i];
+}
+
 var findingsAds = function (usersAds) {
   var ads = [];
 
@@ -89,7 +96,7 @@ var findingsAds = function (usersAds) {
     var locationY = getRandomNumber(MIX_LOCATION_Y, MAX_LOCATION_Y) - PIN_HEIGHT;
 
     // Количество комнат в доме
-    var houseRooms = getRandomNumber(0, ROOMS_IN_HOUSE);
+    var houseRooms = getRandomNumber(1, ROOMS_IN_HOUSE);
 
     // Определяем количество гостей в доме
     var getGuestsInHouse = function () {
@@ -99,14 +106,12 @@ var findingsAds = function (usersAds) {
       return guestInHouse;
     };
 
-    var coin = getAvatarImage();
-
     var dataAds = {
       author: {
-        avatar: coin[i]  // Аватар пользователя
+        avatar: getEnumeration(getAvatarImage()) //getEnumeration(getAvatarImage()) // Аватар пользователя
       },
       offer: {
-        title: getRandomItem(TITLES), // Заголовок объявления
+        title: getEnumeration(TITLES), // Заголовок объявления
         address: locationX + ', ' + locationY, // Координаты на карте X и Y
         price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000), // Цена жилья в диапозоне от 1000 до 1000000  с шагом 1000
         type: getRandomItem(TYPE_APARTMENTS), // Тип жилья
@@ -125,8 +130,10 @@ var findingsAds = function (usersAds) {
     };
     ads.push(dataAds);
   }
+  console.log(ads);
   return ads;
 };
+
 
 var pinTemplate = document.querySelector('#pin').content;
 
@@ -205,6 +212,7 @@ function renderCard(pin) {
     cardElement.querySelector('.popup__photos').appendChild(getApartmentPhoto());
     cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
   }
+  console.log(cardElement);
   return cardElement;
 };
 
