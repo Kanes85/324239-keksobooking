@@ -49,7 +49,7 @@ var getRandomItem = function (items) {
 
 // Генерация случайного числа в заданном диапазоне
 var getRandomNumber = function (min, max) {
-  var randomNumber = Math.floor(Math.random() * (min - max)) + max;
+  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
   return randomNumber;
 };
 
@@ -63,15 +63,14 @@ var getAvatarImage = function () {
 };
 
 // Перемешивание массива с фотографиями
-function shuffle(arr){
-	var j, temp;
-	for(var i = arr.length - 1; i > 0; i--){
-		j = Math.floor(Math.random()*(i + 1));
-		temp = arr[j];
-		arr[j] = arr[i];
-		arr[i] = temp;
+function shuffle(array){
+	for(var i = array.length - 1; i > 0; i--){
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = array[j];
+		array[j] = array[i];
+		array[i] = temp;
 	}
-	return arr;
+	return array;
 }
 
 // Выдача случайной длины массива
@@ -100,9 +99,11 @@ var findingsAds = function (usersAds) {
       return guestInHouse;
     };
 
+    var coin = getAvatarImage();
+
     var dataAds = {
       author: {
-        avatar: getRandomItem(getAvatarImage()) // Аватар пользователя
+        avatar: coin[i]  // Аватар пользователя
       },
       offer: {
         title: getRandomItem(TITLES), // Заголовок объявления
@@ -137,8 +138,8 @@ function templateElement(items) {
 
     pinElement.style.left = pinData.location.x + 'px';
     pinElement.style.top = pinData.location.y + 'px';
-    pinElement.querySelector('img').src = pinData.author.avatar; // Доработать
-    pinElement.querySelector('img').alt = pinData.offer.title; // Доработать
+    pinElement.querySelector('img').src = pinData.author.avatar;
+    pinElement.querySelector('img').alt = pinData.offer.title;
   }
   return pinElement;
 }
@@ -199,32 +200,11 @@ function renderCard(pin) {
     cardElement.querySelector('.popup__type').textContent = getTranslationType();
     cardElement.querySelector('.popup__text--capacity').textContent = pins.offer.rooms + ' комнаты для ' + pins.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + pins.offer.checkin + ', выезд до ' + pins.offer.checkout;
-    // cardElement.querySelector('.popup__features').innerHTML = ''; // Доработать. Иногда featureAppart[z] выдает = undefined.
     cardElement.querySelector('.popup__features').appendChild(getFeaturesIcon());
     cardElement.querySelector('.popup__description').textContent = pins.offer.description;
     cardElement.querySelector('.popup__photos').appendChild(getApartmentPhoto());
-    cardElement.querySelector('.popup__avatar').src = pins.author.avatar; // Доработать
+    cardElement.querySelector('.popup__avatar').src = pins.author.avatar;
   }
-
-  // // Добавление изображений жилья в карточку .popup__photos
-  // for (var k = 0; k < APARTMENT_PHOTOS.length; k++) {
-  //   var img = document.createElement('img');
-  //   img.src = pins.offer.photos[k];
-  //   img.className = 'popup__photo';
-  //   img.width = 45;
-  //   img.height = 40;
-  //   img.alt = 'Фотография жилья';
-  //   cardElement.querySelector('.popup__photos').appendChild(img);
-  // }
-
-  // // Добавление иконок удобств в карточку жилья .popup__feature
-  // for (var z = 0; z < getArrayLength(FEATURES).length; z++) {
-  //   var feature = document.createElement('li');
-  //   var featureAppart = getArrayLength(FEATURES);
-  //   feature.className = 'popup__feature popup__feature--' + featureAppart[z];
-  //   // cardElement.querySelector('.popup__features').appendChild(feature);
-  // console.log(feature); //Иногда featureAppart[z] выдает = undefined. Почему?
-
   return cardElement;
 };
 
@@ -236,7 +216,7 @@ var renderPin = findingsAds(USER_COUNT);
 map.insertBefore(renderCard(renderPin), similarCardList);
 for (var i = 0; i < USER_COUNT; i++) {
   fragment.appendChild(templateElement(findingsAds(USER_COUNT)));
-}
+};
 
 mapPinsBlock.appendChild(fragment);
-// console.log(mapPinsBlock);
+console.log(mapPinsBlock);
