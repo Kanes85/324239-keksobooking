@@ -57,9 +57,8 @@ var getRandomNumber = function (min, max) {
 var getAvatarImage = function () {
   var avatarImages = [];
   for (var i = 0; i < USER_COUNT; i++) {
-      avatarImages.push('img/avatars/user0' + (i + 1) + '.png');
+    avatarImages.push('img/avatars/user0' + (i + 1) + '.png');
   }
-  console.log()
   return avatarImages;
 };
 
@@ -83,20 +82,10 @@ function getArrayLength(array) {
 // Перебор массива
 function getEnumeration(array) {
   var temp = array;
-  temp.forEach(function (entry, i) {
-    // console.log(i);
+  temp.forEach(function () {
   });
-  return i;
+  return temp[i];
 }
-
-// var com = function () {
-//   var comi = getAvatarImage();
-//   getEnumeration(comi);
-//   var sim = comi[i];
-//   // console.log(comi[i]);
-//   return sim;
-// }
-// com();
 
 var findingsAds = function () {
   var ads = [];
@@ -118,7 +107,7 @@ var findingsAds = function () {
 
   var dataAds = {
     author: {
-      // avatar: com()// Аватар пользователя
+      avatar: getEnumeration(getAvatarImage())// Аватар пользователя
     },
     offer: {
       title: getEnumeration(TITLES), // Заголовок объявления
@@ -139,7 +128,6 @@ var findingsAds = function () {
     }
   };
   ads.push(dataAds);
-  // console.log(getEnumeration(getAvatarImage()));
   return ads;
 };
 
@@ -235,4 +223,4 @@ for (var i = 0; i < USER_COUNT; i++) {
 }
 
 mapPinsBlock.appendChild(fragment);
-console.log(mapPinsBlock);
+// console.log(mapPinsBlock);
