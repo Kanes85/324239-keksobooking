@@ -86,21 +86,13 @@ function getEnumeration(array) {
   temp.forEach(function (entry, i) {
     // console.log(i);
   });
-  return i;
+return temp[i];
 }
-
-// var com = function () {
-//   var comi = getAvatarImage();
-//   getEnumeration(comi);
-//   var sim = comi[i];
-//   // console.log(comi[i]);
-//   return sim;
-// }
-// com();
 
 var findingsAds = function () {
   var ads = [];
 
+  // for (var i = 0; i < USER_COUNT; i++) {
   // Определение координат X и Y
   var locationX = getRandomNumber(MIX_LOCATION_X, MAX_LOCATION_X) - PIN_WIDTH / 2;
   var locationY = getRandomNumber(MIX_LOCATION_Y, MAX_LOCATION_Y) - PIN_HEIGHT;
@@ -118,7 +110,7 @@ var findingsAds = function () {
 
   var dataAds = {
     author: {
-      // avatar: com()// Аватар пользователя
+      avatar: getEnumeration(getAvatarImage())// Аватар пользователя
     },
     offer: {
       title: getEnumeration(TITLES), // Заголовок объявления
@@ -163,6 +155,7 @@ var cardBlock = document.querySelector('#card').content;
 function renderCard(pin) {
   var cardAds = cardBlock.querySelector('.map__card');
   for (var j = 0; j < pin.length; j++) {
+  // cardAds.forEach(function(item, j) {
     var pins = pin[j];
     var cardElement = cardAds.cloneNode(true);
 
@@ -222,7 +215,8 @@ function renderCard(pin) {
   }
   // console.log(cardElement);
   return cardElement;
-}
+  // });
+};
 
 var fragment = document.createDocumentFragment();
 var mapPinsBlock = document.querySelector('.map__pins');
