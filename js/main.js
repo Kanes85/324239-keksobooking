@@ -28,38 +28,26 @@ var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 
 var ROOMS_IN_HOUSE = 5;
-var MAX_GUESTS_IN_ROOM = 4;
+var MAX_GUESTS_IN_ROOM = 10;
 
 // Убираю класс .map--faded
 var mapBlock = document.querySelector('.map');
 mapBlock.classList.remove('map--faded');
 
 // Получение диапазона цен в интервале с шагом
-var getPriceHouse = function (min, max, interval) {
-  var randomePriceElement = Math.floor(Math.random() * (max - min + interval) / interval);
-  var randomePrice = randomePriceElement * interval + min;
-  return randomePrice;
-};
-
-// Случайное число
-var getRandomItem = function (items) {
-  var numberGenerator = items[Math.floor(Math.random() * items.length)];
-  return numberGenerator;
+var getPriceHouse = function (min, max, step) {
+  var randomPriceElement = Math.floor(Math.random() * (max - min + step) / step);
+    return randomPriceElement * step + min;
 };
 
 // Генерация случайного числа в заданном диапазоне
 var getRandomNumber = function (min, max) {
-  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  return randomNumber;
+  return Math.floor(Math.random() * (max - min)) + min;
 };
 
-// Генерация аватара
-var getAvatarImages = function () {
-  var avatarImages = [];
-  for (var i = 0; i < USER_COUNT; i++) {
-    avatarImages.push('img/avatars/user0' + (i + 1) + '.png');
-  }
-  return avatarImages;
+// Случайный номер элемента массива
+var getRandomItem = function (items) {
+  return items[getRandomNumber(items.length, 0)];
 };
 
 // Перемешивание массива
@@ -73,52 +61,38 @@ function shuffle(array) {
   return array;
 }
 
-// Выдача случайной длины массива
-function getArrayLength(array) {
-  var arrLength = array.slice(0, getRandomNumber(1, array.length));
-  return arrLength;
+// Выдача массива массива случайной длинный
+function getArrayRandomLong(array) {
+  return shuffle(array).slice(0, getRandomNumber(1, array.length));
 }
 
-// // Перебор массива
-// function getEnumeration(array) {
-//   var temp = array;
-//   temp.forEach(function () {
-//   });
-//   return temp[i];
-// }
-
-var findingsAds = function () {
+var generateAds = function () {
   var ads = [];
 
+  for (var i = 0; i < USER_COUNT; i++) {
   // Определение координат X и Y
   var locationX = getRandomNumber(MIX_LOCATION_X, MAX_LOCATION_X) - PIN_WIDTH / 2;
   var locationY = getRandomNumber(MIX_LOCATION_Y, MAX_LOCATION_Y) - PIN_HEIGHT;
 
   // Количество комнат в доме
-  var houseRooms = getRandomNumber(1, ROOMS_IN_HOUSE);
+  var rooms = getRandomNumber(1, ROOMS_IN_HOUSE);
+  // Количество гостей в доме
+  var guests = getRandomNumber(1, MAX_GUESTS_IN_ROOM);
 
-  // // Определяем количество гостей в доме
-  // var getGuestsInHouse = function () {
-  //   var guestsInRoom = Math.ceil(Math.random() * MAX_GUESTS_IN_ROOM);
-  //   var roomsInHouse = houseRooms;
-  //   var guestInHouse = guestsInRoom * roomsInHouse;
-  //   return guestInHouse;
-  // };
-
-  var dataAds = {
+  var ad = {
     author: {
-      avatar: getEnumeration(getAvatarImage())// Аватар пользователя
+      avatar: 'img/avatars/user0' + (i + 1) + '.png'// Аватар пользователя
     },
     offer: {
-      title: getEnumeration(TITLES), // Заголовок объявления
+      title: TITLES[i], // Заголовок объявления
       address: locationX + ', ' + locationY, // Координаты на карте X и Y
       price: getPriceHouse(MIN_PRICE, MAX_PRICE, 1000), // Цена жилья в диапозоне от 1000 до 1000000  с шагом 1000
       type: getRandomItem(TYPE_APARTMENTS), // Тип жилья
-      rooms: houseRooms, // Количество комнат
-      guests: getGuestsInHouse(), // Количество гостей в доме
+      rooms: rooms, // Количество комнат
+      guests: guests, // Количество гостей в доме
       checkin: getRandomItem(TIMES), // Время заезда
       checkout: getRandomItem(TIMES), // Время выезда
-      features: getArrayLength(FEATURES), // Массив строк случайной длины с удобствами
+      features: getArrayRandomLong(FEATURES), // Массив строк случайной длины с удобствами
       description: ' ', // Пустая строка
       photos: shuffle(APARTMENT_PHOTOS) // Сортировка в произвольном порядке фотографий
     },
@@ -127,30 +101,33 @@ var findingsAds = function () {
       y: locationY
     }
   };
-  ads.push(dataAds);
+  ads.push(ad);
+}
+  // console.log(getEnumeration(getAvatarImage()));
   return ads;
 };
 
 var pinTemplate = document.querySelector('#pin').content;
+var mapPin = pinTemplate.querySelector('.map__pin');
 
-function templateElement(items) {
-  var mapPin = pinTemplate.querySelector('.map__pin');
-  for (var i = 0; i < items.length; i++) {
-    var pinData = items[i];
+function renderPins(ads) {
+  var pins = [];
+  ads.forEach(function(ad) {
     var pinElement = mapPin.cloneNode(true);
-
-    pinElement.style.left = pinData.location.x + 'px';
-    pinElement.style.top = pinData.location.y + 'px';
-    pinElement.querySelector('img').src = pinData.author.avatar;
-    pinElement.querySelector('img').alt = pinData.offer.title;
-  }
-  return pinElement;
+    pinElement.style.left = ad.location.x + 'px';
+    pinElement.style.top = ad.location.y + 'px';
+    pinElement.querySelector('img').src = ad.author.avatar;
+    pinElement.querySelector('img').alt = ad.offer.title;
+    pins.push(pinElement);
+  });
+  return pins;
 }
 
 var cardBlock = document.querySelector('#card').content;
 function renderCard(pin) {
   var cardAds = cardBlock.querySelector('.map__card');
   for (var j = 0; j < pin.length; j++) {
+  // cardAds.forEach(function(item, j) {
     var pins = pin[j];
     var cardElement = cardAds.cloneNode(true);
 
@@ -188,9 +165,9 @@ function renderCard(pin) {
     var getFeaturesIcon = function () {
       cardElement.querySelector('.popup__features').innerHTML = '';
       var shuffleFeature = shuffle(FEATURES);
-      for (var z = 0; z < getArrayLength(shuffleFeature).length; z++) {
+      for (var z = 0; z < getArrayRandomLong(shuffleFeature).length; z++) {
         var feature = document.createElement('li');
-        var featureAppart = getArrayLength(shuffleFeature);
+        var featureAppart = getArrayRandomLong(shuffleFeature);
         feature.className = 'popup__feature popup__feature--' + featureAppart[z];
         cardElement.querySelector('.popup__features').appendChild(feature);
       }
@@ -210,17 +187,21 @@ function renderCard(pin) {
   }
   // console.log(cardElement);
   return cardElement;
-}
+  // });
+};
 
-var fragment = document.createDocumentFragment();
 var mapPinsBlock = document.querySelector('.map__pins');
 var similarCardList = document.querySelector('.map__filters-container');
 var map = document.querySelector('.map');
-var renderPin = findingsAds();
-map.insertBefore(renderCard(renderPin), similarCardList);
-for (var i = 0; i < USER_COUNT; i++) {
-  fragment.appendChild(templateElement(findingsAds(USER_COUNT)));
-}
+var ads = generateAds();
+var pins = renderPins(ads);
 
+var fragment = document.createDocumentFragment();
+pins.forEach(function(pin) {
+  fragment.appendChild(pin);
+});
 mapPinsBlock.appendChild(fragment);
+
+map.insertBefore(renderCard(renderPins), similarCardList);
+
 // console.log(mapPinsBlock);
