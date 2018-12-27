@@ -54,7 +54,7 @@ var getRandomNumber = function (min, max) {
 };
 
 // Генерация аватара
-var getAvatarImage = function () {
+var getAvatarImages = function () {
   var avatarImages = [];
   for (var i = 0; i < USER_COUNT; i++) {
     avatarImages.push('img/avatars/user0' + (i + 1) + '.png');
@@ -62,7 +62,7 @@ var getAvatarImage = function () {
   return avatarImages;
 };
 
-// Перемешивание массива с фотографиями
+// Перемешивание массива
 function shuffle(array) {
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -79,13 +79,13 @@ function getArrayLength(array) {
   return arrLength;
 }
 
-// Перебор массива
-function getEnumeration(array) {
-  var temp = array;
-  temp.forEach(function () {
-  });
-  return temp[i];
-}
+// // Перебор массива
+// function getEnumeration(array) {
+//   var temp = array;
+//   temp.forEach(function () {
+//   });
+//   return temp[i];
+// }
 
 var findingsAds = function () {
   var ads = [];
@@ -97,13 +97,13 @@ var findingsAds = function () {
   // Количество комнат в доме
   var houseRooms = getRandomNumber(1, ROOMS_IN_HOUSE);
 
-  // Определяем количество гостей в доме
-  var getGuestsInHouse = function () {
-    var guestsInRoom = Math.ceil(Math.random() * MAX_GUESTS_IN_ROOM);
-    var roomsInHouse = houseRooms;
-    var guestInHouse = guestsInRoom * roomsInHouse;
-    return guestInHouse;
-  };
+  // // Определяем количество гостей в доме
+  // var getGuestsInHouse = function () {
+  //   var guestsInRoom = Math.ceil(Math.random() * MAX_GUESTS_IN_ROOM);
+  //   var roomsInHouse = houseRooms;
+  //   var guestInHouse = guestsInRoom * roomsInHouse;
+  //   return guestInHouse;
+  // };
 
   var dataAds = {
     author: {
